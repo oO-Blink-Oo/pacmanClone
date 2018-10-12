@@ -6,11 +6,12 @@ from maze import Maze
 
 
 class Game:
-    BLACK = (255, 255, 255)
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
 
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((600, 650))
+        self.screen = pygame.display.set_mode((800, 800))
         pygame.display.set_caption('Pacman')
 
         self.maze = Maze(self.screen, 'test.txt', 'brick')
