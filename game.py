@@ -11,10 +11,10 @@ class Game:
 
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((800, 800))
+        self.screen = pygame.display.set_mode((580, 800))
         pygame.display.set_caption('Pacman')
 
-        self.maze = Maze(self.screen, 'test.txt', 'brick')
+        self.maze = Maze(self.screen, 'test.txt', 'images/wall', 'images/foodPellet')  # Give files needed to populate the maze
 
     # def __str__(self): return
 
