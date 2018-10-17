@@ -10,7 +10,7 @@ class EventLoop:
         return 'eventloop, finished=' + str(self.finished) + ')'
 
     @staticmethod
-    def check_events():
+    def check_events(player):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()

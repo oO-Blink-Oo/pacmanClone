@@ -5,12 +5,12 @@ from imagerect import ImageRect
 
 class Maze:
     RED = (255, 0, 0)
-    BRICK_SIZE = 11
-    PACMAN_SIZE = 20
-    PELLET_SIZE = 6
-    POWER_PELLET_SIZE = 13
+    BRICK_SIZE = 13
+    # PACMAN_SIZE = 20
+    # PELLET_SIZE = 4
+    # POWER_PELLET_SIZE = 10
 
-    def __init__(self, screen, mazefile, brickfile, pelletFile):
+    def __init__(self, screen, mazefile, brickfile, pelletfile):
         self.screen = screen
         self.filename = mazefile
         with open(self.filename, 'r') as f:
@@ -19,12 +19,14 @@ class Maze:
         self.bricks = []
         self.pellets = []
         self.powerPellets = []
+
         sz = Maze.BRICK_SIZE
-        pelletsize = Maze.PELLET_SIZE
-        powerPelletSize = Maze.POWER_PELLET_SIZE
+        # pelletsize = Maze.PELLET_SIZE
+        # power_pellet_size = Maze.POWER_PELLET_SIZE
         self.brick = ImageRect(screen, brickfile, sz, sz)
-        self.pellet = ImageRect(screen, pelletFile, pelletsize, pelletsize)
-        self.powerPellet = ImageRect(screen, pelletFile, powerPelletSize, powerPelletSize)
+        self.pellet = ImageRect(screen, pelletfile, int(.5*sz), int(.5*sz))
+        # self.powerPellet = ImageRect(screen, pelletfile, power_pellet_size, power_pellet_size)
+
         self.deltax = self.deltay = Maze.BRICK_SIZE
 
         self.build()
@@ -33,6 +35,7 @@ class Maze:
 
     def build(self):
         r = self.brick.rect
+        pellet = self.pellet.rect
         w, h = r.width, r.height
         dx, dy = self.deltax, self.deltay
 
@@ -40,12 +43,12 @@ class Maze:
             row = self.rows[nrow]
             for ncol in range(len(row)):
                 col = row[ncol]
-                if col == 'x':
+                if col == 'X':
                     self.bricks.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'f':
                     self.pellets.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'F':
-                    self.powerPellets.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                    self.powerPellets.append(pygame.Rect(ncol * dx, nrow * dy, pellet.width, pellet.height))
 
     def blitme(self):
         for rect in self.bricks:
@@ -54,5 +57,5 @@ class Maze:
         for pelletrect in self.pellets:
             self.screen.blit(self.pellet.image, pelletrect)
 
-        for powerrect in self.powerPellets:
-            self.screen.blit(self.powerPellet.image, powerrect)
+        # for powerrect in self.powerPellets:
+        #     self.screen.blit(self.powerPellet.image, powerrect)
