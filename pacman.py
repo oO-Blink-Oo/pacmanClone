@@ -1,16 +1,13 @@
 import pygame
 from pygame.sprite import Sprite
 
-from maze import Maze
-from imagerect import ImageRect
-
-
 
 class Pacman(Sprite):
 
     def __init__(self, screen, maze_things):
         """Initialized values"""
         super(Pacman, self).__init__()
+        pygame.font.init()
         self.screen = screen
         # get the rect of the screen
         self.screen_rect = screen.get_rect()
@@ -29,11 +26,14 @@ class Pacman(Sprite):
 
         self.image = self.pacRight[1]
 
+        # Score
+        self.score = 0
+
         # Pacman sounds
         self.eating_sound = pygame.mixer.Sound("sounds/waka1.wav")
 
         # Pacman speed
-        self.speed = 3
+        self.speed = 5
 
         # Get rect of the image
         self.rect = self.pacman_idle.get_rect()
@@ -59,27 +59,33 @@ class Pacman(Sprite):
         self.center_horizontal = float(self.rect.centerx)
         self.center_vertical = float(self.rect.centery)
 
+    def points_gathered(self):
+        font = pygame.font.SysFont(None, 50)
+        text = font.render("Score: " + str(self.score), True, (255, 255, 255))
+        self.screen.blit(text, (10, 670))
+
     def update(self):
         for brick in self.bricks:
             if brick.colliderect(self.rect):
 
                 if self.moving_right:
-                    self.center_horizontal -= self.speed
+                    self.center_horizontal -= self.speed + 2
                     self.moving_right = False
                 elif self.moving_left:
-                    self.center_horizontal += self.speed
+                    self.center_horizontal += self.speed + 2
                     self.moving_left = False
                 elif self.moving_up:
-                    self.center_vertical += self.speed
+                    self.center_vertical += self.speed + 2
                     self.moving_up = False
                 elif self.moving_down:
-                    self.center_vertical -= self.speed
+                    self.center_vertical -= self.speed + 2
                     self.moving_down = False
                 print("collide")
 
         for pellet in self.pellets:
             if pellet.colliderect(self.rect):
                 pygame.mixer.Sound.play(self.eating_sound)
+                self.score += 10
                 self.pellets.remove(pellet)
 
         if self.moving_right and self.rect.right < self.screen_rect.right:  # deals with edge of screen collisions
@@ -114,10 +120,3 @@ class Pacman(Sprite):
             self.walkCount += 1
         else:
             self.screen.blit(self.pacman_idle, self.rect)
-
-
-
-    # make a reset position for pacman for new game or death
-
-# Ask Professor
-# how to get the rect of a list of loaded images

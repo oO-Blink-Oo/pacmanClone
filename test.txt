@@ -40,7 +40,7 @@ X.ffff.XX.fffffffffff....fffffffffff.XX.ffff.X
 X....f.XX.f....f..............f....f.XX.f....X
 XXXX.f.XX.f.XX.f.XXXXXXXXXXXX.f.XX.f.XX.f.XXXX
 XXXX.f.XX.f.XX.f.XXXXXXXXXXXX.f.XX.f.XX.f.XXXX
-X.........f.XX.f......XX......f.XX.f....f....X
+X....f....f.XX.f......XX......f.XX.f....f....X
 X.fffffffff.XX.ffffff.XX.ffffff.XX.fffffffff.X
 X.f.........XX......f.XX.f......XX.........f.X
 X.f.XXXXXXXXXXXXXXX.f.XX.f.XXXXXXXXXXXXXXX.f.X

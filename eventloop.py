@@ -52,9 +52,9 @@ class EventLoop:
         return 'eventloop, finished=' + str(self.finished) + ')'
 
     @staticmethod
-    def check_events(screen, player):
+    def check_events(player):
 
-        screen_rect = screen.get_rect()
+        # screen_rect = screen.get_rect()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -65,4 +65,3 @@ class EventLoop:
             # Leave this commented to make player keep moving in one key press
             # elif event.type == pygame.KEYUP:
             #     check_keyup_events(event, player)
-
