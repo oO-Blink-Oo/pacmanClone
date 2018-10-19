@@ -5,7 +5,7 @@ from imagerect import ImageRect
 
 class Maze:
     RED = (255, 0, 0)
-    BRICK_SIZE = 13
+    BRICK_SIZE = 13  # 7 if extended
     # PACMAN_SIZE = 20
     # PELLET_SIZE = 4
     # POWER_PELLET_SIZE = 10
@@ -37,6 +37,7 @@ class Maze:
         r = self.brick.rect
         pellet = self.pellet.rect
         w, h = r.width, r.height
+        p_w, p_h = pellet.width, pellet.height
         dx, dy = self.deltax, self.deltay
 
         for nrow in range(len(self.rows)):
@@ -46,9 +47,9 @@ class Maze:
                 if col == 'X':
                     self.bricks.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'f':
-                    self.pellets.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
+                    self.pellets.append(pygame.Rect(ncol * dx, nrow * dy, p_w, p_h))
                 if col == 'F':
-                    self.powerPellets.append(pygame.Rect(ncol * dx, nrow * dy, pellet.width, pellet.height))
+                    self.powerPellets.append(pygame.Rect(ncol * dx, nrow * dy, p_w, p_h))
 
     def blitme(self):
         for rect in self.bricks:
