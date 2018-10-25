@@ -15,8 +15,12 @@ class Pacman(Sprite):
         # get the rect of a brick to check for collision
         self.bricks = maze_things.bricks
         self.pellets = maze_things.pellets
+        self.power_pellets = maze_things.powerPellets
+        self.portal_one = maze_things.portal_one
+        self.portal_two = maze_things.portal_two
 
         self.maze_properties = maze_things
+
         # Load the images for pacman
         self.pacRight = [pygame.image.load('images/r1.png'), pygame.image.load('images/r2.png')]
         self.pacLeft = [pygame.image.load('images/L1.png'), pygame.image.load('images/L2.png')]
@@ -37,6 +41,14 @@ class Pacman(Sprite):
 
         # Get rect of the image
         self.rect = self.pacman_idle.get_rect()
+
+        # Lives
+        self.livesImage = pygame.image.load('images/r1.png')
+        self.livesLeftImages = []
+        self.fruitEaten = []
+        self.life_left = 3
+        for x in range(self.life_left):
+            self.livesLeftImages.append(self.livesImage)
 
         # Movement flag
         self.moving_right = False
@@ -88,14 +100,38 @@ class Pacman(Sprite):
                 self.score += 10
                 self.pellets.remove(pellet)
 
+        for power_pellet in self.power_pellets:
+            if power_pellet.colliderect(self.rect):
+                pygame.mixer.Sound.play(self.eating_sound)
+                self.score += 300
+                self.power_pellets.remove(power_pellet)
+
+        for portal_one in self.portal_one:
+            if portal_one.colliderect(self.rect):
+                self.center_vertical = 435
+                self.center_horizontal = 32
+
+        for portal_two in self.portal_two:
+            if portal_two.colliderect(self.rect):
+                self.center_vertical = 32
+                self.center_horizontal = 570
+
         if self.moving_right and self.rect.right < self.screen_rect.right:  # deals with edge of screen collisions
             self.center_horizontal += self.speed
-        if self.moving_left and self.rect.left > 0:
+            print("Horizonatal_position: " + str(self.center_horizontal) + " Vertical_position: "
+                  + str(self.center_vertical))
+        if self.moving_left and self.rect.left > - 25:
             self.center_horizontal -= self.speed
+            print("Horizonatal_position: " + str(self.center_horizontal) + " Vertical_position: "
+                  + str(self.center_vertical))
         if self.moving_up and self.rect.top > 0:
             self.center_vertical -= self.speed
+            print("Horizonatal_position: " + str(self.center_horizontal) + " Vertical_position: "
+                  + str(self.center_vertical))
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.center_vertical += self.speed
+            print("Horizonatal_position: " + str(self.center_horizontal) + " Vertical_position: "
+                  + str(self.center_vertical))
 
         # Update rect object from self.center.
         self.rect.centerx = self.center_horizontal
@@ -112,6 +148,11 @@ class Pacman(Sprite):
         elif self.moving_left:
             self.screen.blit(self.pacLeft[self.walkCount % 2], self.rect)
             self.walkCount += 1
+        # elif self.moving_left or self.center_horizontal < -30:
+        #     self.center_vertical = 35
+        #     self.center_horizontal = 570
+        #     self.screen.blit(self.pacLeft[self.walkCount % 2], self.rect)
+        #     self.walkCount += 1
         elif self.moving_up:
             self.screen.blit(self.pacUp[self.walkCount % 2], self.rect)
             self.walkCount += 1
@@ -120,3 +161,15 @@ class Pacman(Sprite):
             self.walkCount += 1
         else:
             self.screen.blit(self.pacman_idle, self.rect)
+
+        placement = 0
+        for x in self.livesLeftImages:
+            self.livesImageRect = x.get_rect()
+
+            self.livesImageRect.center = self.screen_rect.center
+            self.livesImageRect.y = 670
+            self.livesImageRect.right = self.screen_rect.right - 330 + placement
+
+            placement += 30
+
+            self.screen.blit(x, self.livesImageRect)
