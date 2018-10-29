@@ -4,7 +4,7 @@ from pygame.sprite import Sprite
 
 class Pacman(Sprite):
 
-    def __init__(self, screen, maze_things):
+    def __init__(self, screen, maze_things, position):
         """Initialized values"""
         super(Pacman, self).__init__()
         pygame.font.init()
@@ -35,6 +35,7 @@ class Pacman(Sprite):
 
         # Pacman sounds
         self.eating_sound = pygame.mixer.Sound("sounds/waka1.wav")
+        self.portal_sound = pygame.mixer.Sound("sounds/portal.wav")
 
         # Pacman speed
         self.speed = 5
@@ -60,8 +61,8 @@ class Pacman(Sprite):
         self.walkCount = 0
 
         # Initial placement of pacman (w/o extending text file)
-        self.rect.x = 285
-        self.rect.y = 485
+        self.rect.x = position[0] * self.maze_properties.brick.rect.width - 15
+        self.rect.y = position[1] * self.maze_properties.brick.rect.height - 9
 
         # Extended text file initial position
         # self.rect.x = 307
@@ -108,11 +109,13 @@ class Pacman(Sprite):
 
         for portal_one in self.portal_one:
             if portal_one.colliderect(self.rect):
+                pygame.mixer.Sound.play(self.portal_sound)
                 self.center_vertical = 435
                 self.center_horizontal = 32
 
         for portal_two in self.portal_two:
             if portal_two.colliderect(self.rect):
+                pygame.mixer.Sound.play(self.portal_sound)
                 self.center_vertical = 32
                 self.center_horizontal = 570
 

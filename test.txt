@@ -11,7 +11,7 @@ X.f.......f....f..............f....f.......f.X
 X.f.XXXXX.f.XX.f.XXXXXXXXXXXX.f.XX.f.XXXXX.f.X
 X.f XXXXX.f.XX.f.XXXXXXXXXXXX.f.XX.f.XXXXX.f.X
 X.f.......f.XX.f......XX......f.XX.f.......f.X
-X.fffffff.f.XX.ffffff.XX.ffffff.XX.fffffffff.X
+X.fffffffff.XX.ffffff.XX.ffffff.XX.fffffffff.X
 X.........f.XX........XX........XX.f.........X
 XXXXXXXXX.f.XXXXXXX...XX...XXXXXXX.f.XXXXXXXXX
 ........X.f.XXXXXXX...XX...XXXXXXX.f.X........
@@ -21,7 +21,7 @@ XXXXXXXXX.f.XXXXXXX...XX...XXXXXXX.f.XXXXXXXXX
 ........X.f.XX...XXXXs1.sXXXX...XX.f.X........
 XXXXXXXXX.f.XX...X..........X...XX.f.XXXXXXXXX
 X.........f......X..........X......f.........X
-X.........f......X..........X......f.........X
+X.........f......X.2..4..3..X......f.........X
 X.........f......X..........X......f.........X
 XXXXXXXXX.f.XX...X..........X...XX.f.XXXXXXXXX
 ........X.f.XX...XXXXXXXXXXXX...XX.f.X........
@@ -36,7 +36,7 @@ p.........f...........XX...........f.........X
 ..f.XXXXX.f.XXXXXXX.f.XX.f.XXXXXXX.f.XXXXX.f.X
 X.f.XXXXX.f.XXXXXXX.f.XX.f.XXXXXXX.f.XXXXX.f.X
 X.f....XX.f.........f....f.........f.XX....f.X
-X.Ffff.XX.fffffffffff....fffffffffff.XX.fffF.X
+X.Ffff.XX.fffffffffff..C.fffffffffff.XX.fffF.X
 X....f.XX.f....f..............f....f.XX.f....X
 XXXX.f.XX.f.XX.f.XXXXXXXXXXXX.f.XX.f.XX.f.XXXX
 XXXX.f.XX.f.XX.f.XXXXXXXXXXXX.f.XX.f.XX.f.XXXX

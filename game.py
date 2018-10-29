@@ -35,7 +35,11 @@ class Game:
         self.maze = Maze(self.screen, 'test.txt', 'images/wall', 'images/foodPellet',
                          'images/portal_1', 'images/portal_2')
 
-        self.player = Pacman(self.screen, self.maze)
+        self.player = Pacman(self.screen, self.maze, self.maze.pacmanposition)
+        self.blinky = Ghost(self.screen, 'blinky', self.maze, self.maze.blinky_position, self.player)
+        self.clyde = Ghost(self.screen, 'clyde', self.maze, self.maze.clyde_position, self.player)
+        self.inkey = Ghost(self.screen, 'inkey', self.maze, self.maze.inkey_position, self.player)
+        self.pinky = Ghost(self.screen, 'pinky', self.maze, self.maze.pinky_position, self.player)
 
         self.intro_music = pygame.mixer.Sound("sounds/intro.wav")
 
@@ -76,6 +80,10 @@ class Game:
         self.screen.fill(self.BLACK)
         self.maze.blitme()
         self.player.blitme()
+        self.blinky.blitme()
+        self.clyde.blitme()
+        self.inkey.blitme()
+        self.pinky.blitme()
         # Draw scoreboard
         self.player.points_gathered()
 

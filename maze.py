@@ -1,12 +1,13 @@
 import pygame
 from imagerect import ImageRect
 from ghost import Ghost
-# from pacman import Pacman
+from pacman import Pacman
 
 
 class Maze:
     RED = (255, 0, 0)
     BRICK_SIZE = 13  # 7 if extended
+    PELLET_SIZE = 13
     # PACMAN_SIZE = 20
     # PELLET_SIZE = 4
     # POWER_PELLET_SIZE = 10
@@ -22,8 +23,13 @@ class Maze:
         self.powerPellets = []
         self.portal_one = []
         self.portal_two = []
-        self.ghosts = []
-        self.blinky_obj = Ghost(screen, 'blinky')
+        #self.ghosts = []
+        #self.blinky_obj = Ghost(screen, 'blinky')
+        self.pacmanposition = (0, 0)
+        self.blinky_position = (0, 0)
+        self.clyde_position = (0, 0)
+        self.inkey_position = (0, 0)
+        self.pinky_position = (0, 0)
         # self.ghosts = ghosts
 
         sz = Maze.BRICK_SIZE
@@ -37,6 +43,8 @@ class Maze:
 
         self.deltax = self.deltay = Maze.BRICK_SIZE
 
+        self.deltaxp = self.deltayp = Maze.BRICK_SIZE
+
         self.build()
 
     def __str__(self): return 'maze(' + self.filename + ')'
@@ -44,9 +52,16 @@ class Maze:
     def build(self):
         r = self.brick.rect
         pellet = self.pellet.rect
+
+        power_pellet = self.powerPellet.rect
         portal = self.portal_1.rect
+
         w, h = r.width, r.height
+
         p_w, p_h = pellet.width, pellet.height
+        dx_p, dy_p = self.deltaxp, self.deltayp
+        pp_w, pp_h = power_pellet.width, power_pellet.height
+
         port_w, port_h = portal.width, portal.height
         dx, dy = self.deltax, self.deltay
 
@@ -57,15 +72,23 @@ class Maze:
                 if col == 'X':
                     self.bricks.append(pygame.Rect(ncol * dx, nrow * dy, w, h))
                 if col == 'f':
-                    self.pellets.append(pygame.Rect(ncol * dx, nrow * dy, p_w, p_h))
+                    self.pellets.append(pygame.Rect(ncol * dx_p + 3, nrow * dy_p + 4, p_w, p_h))
                 if col == 'F':
-                    self.powerPellets.append(pygame.Rect(ncol * dx, nrow * dy, p_w, p_h))
+                    self.powerPellets.append(pygame.Rect(ncol * dx, nrow * dy + 1, pp_w, pp_h))
                 if col == 'P':
                     self.portal_one.append(pygame.Rect(ncol * dx, nrow * dy, port_w, port_h))
                 if col == 'p':
                     self.portal_two.append(pygame.Rect(ncol * dx, nrow * dy, port_w, port_h))
                 if col == '1':
-                    self.ghosts.append(self.blinky_obj)
+                    self.blinky_position = (ncol, nrow)
+                if col == '2':
+                    self.clyde_position = (ncol, nrow)
+                if col == '3':
+                    self.inkey_position = (ncol, nrow)
+                if col == '4':
+                    self.pinky_position = (ncol, nrow)
+                if col == 'C':
+                    self.pacmanposition = (ncol, nrow)
 
     def blitme(self):
         for rect in self.bricks:
@@ -83,5 +106,5 @@ class Maze:
         for powerrect in self.powerPellets:
             self.screen.blit(self.powerPellet.image, powerrect)
 
-        for blinky in self.ghosts:
-            self.screen.blit(self.blinky_obj.image, blinky)
+        # for blinky in self.ghosts:
+        #     self.screen.blit(self.blinky_obj.image, blinky)
