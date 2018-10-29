@@ -5,8 +5,8 @@ from eventloop import EventLoop
 from maze import Maze
 from expandfile import ExpandFile
 from pacman import Pacman
-#from pygame.sprite import Group
 from ghost import Ghost
+
 
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
@@ -24,8 +24,10 @@ class Game:
         pygame.display.set_caption('Pacman')
         self.clock = pygame.time.Clock()
 
+
         self.WHITE = (255, 255, 255)
         self.BLACK = (0, 0, 0)
+        self.hovered = False
 
         # self.blinky = Ghost(self.screen, self.maze, 'blinky')
         #self.ghosts = Group()
@@ -45,17 +47,24 @@ class Game:
 
         self.intro_logo = pygame.image.load('images/pacmanLogo.png')
 
-    # def __str__(self): return
+    def get_color(self):
+        if not self.hovered:
+            return (255, 255, 255)
+        else:
+            return (100, 100, 100)
 
     def game_intro(self):
         pygame.draw.rect(self.screen, (75, 80, 33), (0, 0, self.screen_width, self.screen_height))
         font = pygame.font.SysFont(None, 50)
-        screen_text = font.render("Please click to continue", True, self.WHITE)
-        self.screen.blit(screen_text, (110, 400))
+        self.screen_text = font.render("Play", True, self.get_color())
+        self.text_rect = self.screen_text.get_rect()
+
+        self.screen.blit(self.screen_text, (270, 400))
         self.screen.blit(self.intro_logo, (110, 100))
         intro = True
 
         while intro:
+
             for event in pygame.event.get():
                 print(event)
                 if event.type == pygame.QUIT:
